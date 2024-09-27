@@ -3,10 +3,10 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv').config();
 const cors = require('cors');
 const app = express();
-const authcontroller = require('./controllers/authcontroller')
+const authcontroller = require('./controllers/authcontroller');
+const propertycontroller = require('./controllers/propertycontroller');
+const uploadcontroller = require('./controllers/uploadcontroller');
 app.use(cors());
-
-
 
 
 // Verify environment variables
@@ -27,11 +27,14 @@ async function connectDB() {
 }
 
 connectDB();
-//routes & middlewares
+
+//Routes & middlewares
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use("/auth", authcontroller)
+app.use("/property", propertycontroller)
+app.use("/upload", uploadcontroller)
 
 app.listen(process.env.PORT, () => {
   console.log(`Server has started successfully on port ${process.env.PORT}`);
